@@ -1,3 +1,4 @@
+from colorama import Cursor
 from app.database import get_db
 
 def output_formatter(results):#squilite returns tuples not list tuples are not mutable 
@@ -63,5 +64,16 @@ def update(pk, user_data):
     cursor.execute(statment, value_tuple)
     cursor.commit()    
     cursor.close()    
+
+def deactivate(pk):
+    cursor = get_db()
+    statment ="""
+        UPDATE user
+        SET active=0
+        WHERE id=?
+    """ 
+    cursor.execute(statment(pk,))
+    cursor.commit()
+    cursor.close()
 
 
